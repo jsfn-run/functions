@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GDPR</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@tailwindcss/typography@0.5.0/dist/typography.min.css"
+    />
+    <script type="module">
+      import gdpr from "https://gdpr.jsfn.run/index.mjs";
+      window.addEventListener("DOMContentLoaded", () => {
+        gdpr();
+      });
+    </script>
+  </head>
+  <body>
+    <main class="prose container mx-auto max-w-6xl p-8">
+      <h1>GDPR/Cookie banner</h1>
+      <p>Add this code to any page</p>
+      <pre><code>
+  &lt;script type="module">
+  import gdpr from 'https://gdpr.jsfn.run/index.mjs'
+  window.addEventListener('DOMContentLoaded', () => {
+  gdpr()
+  });
+  &lt;/script>
+  </code></pre>
+    </main>
+  </body>
+</html>

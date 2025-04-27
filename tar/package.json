@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "glob-to-regexp": "^0.4.1",
+    "tar-stream": "^2.1.4"
+  }
+}

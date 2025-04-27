@@ -1,0 +1,6 @@
+{
+  "name": "markdown-cli",
+  "dependencies": {
+    "cli-markdown": "latest"
+  }
+}

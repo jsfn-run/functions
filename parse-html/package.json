@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@homebots/parse-html": "latest",
+    "@homebots/parse-html-runtime": "latest"
+  }
+}

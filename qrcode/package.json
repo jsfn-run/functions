@@ -1,0 +1,6 @@
+{
+  "name": "qrcode",
+  "dependencies": {
+    "qrcode": "latest"
+  }
+}

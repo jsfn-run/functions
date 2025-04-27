@@ -1,0 +1,6 @@
+{
+  "name": "es-minify",
+  "dependencies": {
+    "terser": "^5.0.0"
+  }
+}

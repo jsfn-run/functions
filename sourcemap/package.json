@@ -1,0 +1,6 @@
+{
+  "name": "sourcemap",
+  "dependencies": {
+    "source-map": "latest"
+  }
+}

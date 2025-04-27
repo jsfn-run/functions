@@ -1,0 +1,7 @@
+{
+  "name": "lit-ce",
+  "dependencies": {
+    "@li3/sfc": "latest",
+    "terser": "^5.0.0"
+  }
+}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TTS</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section class="flex items-center justify-around h-screen w-screen">
+      <div class="container mx-auto px-6 flex flex-col items-center">
+        <h1
+          class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-6 text-center"
+        >
+          Text-to-speech
+        </h1>
+        <form class="flex mb-6 max-w-lg">
+          <input
+            type="text"
+            id="input"
+            class="h-10 w-full rounded-l-full border border-gray-400 bg-white px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            placeholder="Text to narrate"
+          /><button
+            class="h-10 px-4 py-2 whitespace-nowrap rounded-r-full text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gray-900 text-white hover:bg-black"
+            type="submit"
+          >
+            Speak
+          </button>
+        </form>
+        <div id="error"></div>
+        <pre
+          id="snippet"
+          class="border border-gray-600 font-mono p-4 rounded max-w-2xl"
+        >
+import { speak, install } from "https://tts.jsfn.run/index.mjs";
+await install();
+document.body.onclick = () => speak('Hello there!');
+        </pre>
+      </div>
+    </section>
+    <script type="module">
+      import { install } from "https://tts.jsfn.run/index.mjs";
+      import { load, highlight } from "https://highlight.jsfn.run/index.mjs";
+
+      window.addEventListener("DOMContentLoaded", async () => {
+        await install();
+        await load();
+
+        snippet.innerHTML = await highlight(snippet.innerText.trim(), {
+          language: "javascript",
+        });
+
+        document.querySelector("form").onsubmit = async (e) => {
+          e.preventDefault();
+          const text = input.value.trim();
+
+          try {
+            if (!text) {
+              throw new Error("Text is empty");
+            }
+            speak(input.value);
+          } catch (e) {
+            error.innerText = String(e);
+            console.log(e);
+          }
+        };
+      });
+    </script>
+  </body>
+</html>

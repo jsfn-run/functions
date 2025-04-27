@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+    <title>Graphviz DOT to SVG</title>
+  </head>
+  <body class="w-screen h-screen flex space-x-2 p-4">
+    <div class="w-1/2 flex flex-col items-stretch">
+      <h2 class="pb-4">DOT input</h2>
+      <textarea id="dotfile" class="border p-2 flex-grow"></textarea>
+    </div>
+
+    <div id="output"></div>
+
+    <script type="module">
+      import convert from "https://dot2svg.jsfn.run/index.mjs";
+
+      dotfile.oninput = async () => {
+        const svg = await convert(dotfile.value);
+        output.innerHTML = await svg.text();
+      };
+    </script>
+  </body>
+</html>

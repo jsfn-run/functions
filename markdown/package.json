@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "markdown-it": "^11.0.0"
+  }
+}

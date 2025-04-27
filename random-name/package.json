@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@scaleway/random-name": "^4.0.0"
+  }
+}
