@@ -1,7 +1,8 @@
 import { readFileSync } from "fs";
 import hljs from "highlight.js";
+import { join } from "path";
 
-const wrapperTemplate = readFileSync("./embed.html", "utf8");
+const wrapperTemplate = readFileSync(join(import.meta.dirname, "./embed.html"), "utf8");
 
 async function highlight(input, output) {
   const { embed = false, language = "text" } = input.options || {};
