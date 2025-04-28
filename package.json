@@ -1,0 +1,23 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "These functions are available at [`jsfn.run`](https://jsfn.run)",
+  "main": "index.js",
+  "scripts": {
+    "ci": "echo true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsfn-run/functions.git"
+  },
+  "keywords": [],
+  "author": "Darlan Alves <me@darlanalv.es>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsfn-run/functions/issues"
+  },
+  "homepage": "https://github.com/jsfn-run/functions#readme",
+  "workspaces": [
+    "functions/*"
+  ]
+}
