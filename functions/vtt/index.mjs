@@ -30,7 +30,7 @@ export default {
         const buffer = await input.asBuffer();
         const formData = Buffer.concat([C1, buffer, C2]);
 
-        const res = await fetch("https://vtt.api.apphor.de", {
+        const res = await fetch(VTT_API_ENDPOINT, {
           method: "POST",
           body: formData,
           headers: {
