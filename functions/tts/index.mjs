@@ -6,28 +6,6 @@ const voices = /^(alloy|echo|fable|onyx|nova|shimmer)$/;
 export default {
   description: "Text-to-speech",
   actions: {
-    install: {
-      description:
-        "Makes text-to-speech available as a function. Use it as window.speak(text)",
-      output: "dom",
-      handler(_, output) {
-        const html = `<audio id="__tts__"></audio>
-<script type="module">
-import tts from 'https://tts.jsfn.run/index.mjs';
-window.speak = async (text) => {
-  const r = await tts(text);
-  if (!r.ok) {
-    throw new Error('Failed to convert text');
-  }
-  const blob = new Blob([await r.arrayBuffer()], { type: "audio/mp3" });
-  const href = URL.createObjectURL(blob);
-  window.__tts__.src = href;
-  window.__tts__.play();
-};
-</script>`;
-        output.send(html);
-      },
-    },
     speak: {
       default: true,
       input: "text",
@@ -65,7 +43,7 @@ window.speak = async (text) => {
         }
 
         const model = hd ? "tts-1-hd" : "tts-1";
-        const res = await fetch("https://voice.api.apphor.de/", {
+        const res = await fetch(process.env.TTS_API_ENDPOINT, {
           method: "POST",
           body: JSON.stringify({
             model,
@@ -77,7 +55,7 @@ window.speak = async (text) => {
         });
 
         if (!res.ok) {
-          return output.reject("Failed");
+          return output.reject("Failed: " + await res.text());
         }
 
         const arrayBuffer = await res.arrayBuffer();
