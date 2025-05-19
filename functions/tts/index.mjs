@@ -1,7 +1,5 @@
 import { Buffer } from "node:buffer";
-
-const formats = /^(mp3|opus|aac|flac)$/;
-const voices = /^(alloy|echo|fable|onyx|nova|shimmer)$/;
+const _ = process.env;
 
 export default {
   description: "Text-to-speech",
@@ -10,27 +8,19 @@ export default {
       default: true,
       input: "text",
       options: {
-        voice: "alloy, echo, fable, onyx, nova, or shimmer",
-        hd: "set to true for high quality",
-        format: "opus, aac, flac or mp3",
+        model: "which model to use",
+        voice: "which model voice to use",
+        format: "output format",
         speed: "between 0.25 and 4",
       },
       handler: async (input, output) => {
         const {
-          voice = "alloy",
+          model = _.TTS_DEFAULT_MODEL,
+          voice = _.TTS_DEFAULT_VOICE,
           format = "mp3",
-          hd = false,
           speed = "1",
         } = input.options;
-
-        if (!voices.test(voice)) {
-          return output.reject("Invalid voice: " + voice);
-        }
-
-        if (!formats.test(format)) {
-          return output.reject("Invalid format: " + format);
-        }
-
+        
         const speedAsNumber = Number(speed);
 
         if (speed < 0.25 || speed > 4) {
@@ -42,9 +32,9 @@ export default {
           return output.reject("No text provided");
         }
 
-        const model = hd ? "tts-1-hd" : "tts-1";
         const res = await fetch(process.env.TTS_API_ENDPOINT, {
           method: "POST",
+          headers: {'content-type': 'application/json' },
           body: JSON.stringify({
             model,
             voice,
@@ -55,7 +45,7 @@ export default {
         });
 
         if (!res.ok) {
-          return output.reject("Failed: " + await res.text());
+          return output.reject(await res.text());
         }
 
         const arrayBuffer = await res.arrayBuffer();
