@@ -12,7 +12,7 @@ const C3 =
   "multipart/form-data; boundary=------------------------xMUfH1yXtLKFZScZN18w2W";
 
 async function transcribe(input, response) {
-  const { output = "text", language = "" } = input.options;
+  const { output = "text", language = "", model = 'whisper-1' } = input.options;
 
   if (!outputFormats.test(output)) {
     return response.reject("Invalid output format: " + output);
@@ -29,12 +29,25 @@ async function transcribe(input, response) {
     );
   }
 
-  const formData = Buffer.concat(chunks);
+  const formData = _.VTT_FORMDATA ? (() => {
+    const f = new FormData();
+    if (language) {
+      f.set('language', language);
+    }
+    
+    f.set('model', model);
+    f.append('file', new Blob([buffer], { type: 'application/octet-stream' }), 'audio.mp3')
+    return f;
+  })() : Buffer.concat(chunks);
+
+  if (_.VTT_DEBUG) {
+    console.log(chunks, formData)
+  }
 
   const res = await fetch(_.VTT_API_ENDPOINT, {
     method: "POST",
     body: formData,
-    headers: {
+    headers: _.VTT_FORMDATA ? {} : {
       "content-type": C3,
       "content-length": formData.length,
     },
